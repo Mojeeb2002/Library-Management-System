@@ -1,6 +1,6 @@
 # Library Management System
 
-A full-stack library management system built for WEX 328 Work Experience. Dockerized, seeded from the Kaggle Book-Crossing dataset (~270k books), with role-based access control and a minimalist black-and-white React frontend.
+A full-stack library management system. Dockerized, seeded from the Kaggle Book-Crossing dataset (~270k books), with role-based access control and a minimalist black-and-white React frontend.
 
 ---
 
