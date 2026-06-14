@@ -36,7 +36,7 @@ export default function Login() {
 
   return (
     <div className="auth-card">
-      <h1>📚 Library System</h1>
+      <h1>Library</h1>
       <div className="tab-bar">
         <button className={mode === "login" ? "active" : ""} onClick={() => setMode("login")}>Login</button>
         <button className={mode === "register" ? "active" : ""} onClick={() => setMode("register")}>Register</button>

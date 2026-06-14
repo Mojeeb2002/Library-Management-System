@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <span className="navbar-brand">📚 Library System</span>
+      <span className="navbar-brand">Library</span>
       <div className="navbar-links">
         <Link to="/">Books</Link>
         <Link to="/history">My History</Link>
