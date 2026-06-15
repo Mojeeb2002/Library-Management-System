@@ -104,7 +104,9 @@ export default function Books() {
   return (
     <div>
       <div className="page-header">
-        <h2>Books ({result.total.toLocaleString()})</h2>
+        <span style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)", fontVariantNumeric: "tabular-nums" }}>
+          {result.total.toLocaleString()} books
+        </span>
         {isStaff && <button className="btn-primary" onClick={openAdd}>+ Add Book</button>}
       </div>
 
@@ -136,40 +138,42 @@ export default function Books() {
         </div>
       )}
 
-      {loading ? <p>Loading…</p> : (
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>ISBN</th><th>Title</th><th>Author</th><th>Year</th>
-              <th>Available</th><th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {result.items.map((book) => (
-              <tr key={book.isbn}>
-                <td className="mono">{book.isbn}</td>
-                <td>{book.title}</td>
-                <td>{book.author || "—"}</td>
-                <td>{book.publication_year || "—"}</td>
-                <td>
-                  <span className={book.available_copies > 0 ? "badge-green" : "badge-red"}>
-                    {book.available_copies}/{book.total_copies}
-                  </span>
-                </td>
-                <td className="actions">
-                  {book.available_copies > 0
-                    ? <button className="btn-sm btn-primary" onClick={() => handleBorrow(book.isbn)}>Borrow</button>
-                    : <button className="btn-sm btn-secondary" onClick={() => handleReserve(book.isbn)}>Reserve</button>
-                  }
-                  {isStaff && <>
-                    <button className="btn-sm" onClick={() => openEdit(book)}>Edit</button>
-                    <button className="btn-sm btn-danger" onClick={() => handleDelete(book.isbn)}>Delete</button>
-                  </>}
-                </td>
+      {loading ? <p style={{ color: "var(--text-muted)", padding: "20px 0" }}>Loading…</p> : (
+        <div className="table-card">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>ISBN</th><th>Title</th><th>Author</th><th>Year</th>
+                <th>Available</th><th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {result.items.map((book) => (
+                <tr key={book.isbn}>
+                  <td className="mono">{book.isbn}</td>
+                  <td>{book.title}</td>
+                  <td>{book.author || "—"}</td>
+                  <td>{book.publication_year || "—"}</td>
+                  <td>
+                    <span className={book.available_copies > 0 ? "badge-green" : "badge-red"}>
+                      {book.available_copies}/{book.total_copies}
+                    </span>
+                  </td>
+                  <td className="actions">
+                    {book.available_copies > 0
+                      ? <button className="btn-sm btn-primary" onClick={() => handleBorrow(book.isbn)}>Borrow</button>
+                      : <button className="btn-sm btn-secondary" onClick={() => handleReserve(book.isbn)}>Reserve</button>
+                    }
+                    {isStaff && <>
+                      <button className="btn-sm btn-secondary" style={{ background: "rgba(247,243,233,0.08)", color: "var(--cream)", border: "1px solid rgba(247,243,233,0.15)" }} onClick={() => openEdit(book)}>Edit</button>
+                      <button className="btn-sm btn-danger" onClick={() => handleDelete(book.isbn)}>Delete</button>
+                    </>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       <div className="pagination">

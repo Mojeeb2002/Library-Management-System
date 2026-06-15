@@ -31,29 +31,36 @@ export default function Users() {
 
   return (
     <div>
-      <h2>User Management</h2>
       {message && <div className={`flash flash-${message.type}`}>{message.text}</div>}
-      {loading ? <p>Loading…</p> : (
-        <table className="data-table">
-          <thead>
-            <tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Joined</th></tr>
-          </thead>
-          <tbody>
-            {users.map((u) => (
-              <tr key={u.id}>
-                <td>{u.id}</td>
-                <td>{u.username}</td>
-                <td>{u.email}</td>
-                <td>
-                  <select value={u.role} onChange={(e) => handleRoleChange(u.id, e.target.value)}>
-                    {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
-                  </select>
-                </td>
-                <td>{new Date(u.created_at).toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {loading ? (
+        <p style={{ color: "var(--text-muted)", padding: "20px 0" }}>Loading…</p>
+      ) : (
+        <div className="table-card">
+          <table className="data-table">
+            <thead>
+              <tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Joined</th></tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u.id}>
+                  <td className="mono">{u.id}</td>
+                  <td style={{ fontWeight: 600, color: "var(--text-strong)" }}>{u.username}</td>
+                  <td style={{ color: "var(--text-muted)" }}>{u.email}</td>
+                  <td>
+                    <select
+                      value={u.role}
+                      onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                      style={{ width: "auto", height: 30, fontSize: "13px" }}
+                    >
+                      {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
+                    </select>
+                  </td>
+                  <td style={{ color: "var(--text-muted)" }}>{new Date(u.created_at).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

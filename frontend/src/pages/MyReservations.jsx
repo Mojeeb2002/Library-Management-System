@@ -35,28 +35,33 @@ export default function MyReservations() {
 
   return (
     <div>
-      <h2>My Reservations</h2>
-      {message && <div className={`flash flash-${message.type}`}>{message.text}</div>}
-      {loading ? <p>Loading…</p> : reservations.length === 0 ? <p>No reservations.</p> : (
-        <table className="data-table">
-          <thead>
-            <tr><th>ISBN</th><th>Reserved On</th><th>Status</th><th>Action</th></tr>
-          </thead>
-          <tbody>
-            {reservations.map((r) => (
-              <tr key={r.id}>
-                <td className="mono">{r.isbn}</td>
-                <td>{r.reservation_date}</td>
-                <td>{statusBadge(r.status)}</td>
-                <td>
-                  {r.status === "active" && (
-                    <button className="btn-sm btn-danger" onClick={() => handleCancel(r.id)}>Cancel</button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+{message && <div className={`flash flash-${message.type}`}>{message.text}</div>}
+      {loading ? (
+        <p style={{ color: "var(--text-muted)", padding: "20px 0" }}>Loading…</p>
+      ) : reservations.length === 0 ? (
+        <p style={{ color: "var(--text-muted)", padding: "20px 0" }}>No reservations.</p>
+      ) : (
+        <div className="table-card">
+          <table className="data-table">
+            <thead>
+              <tr><th>ISBN</th><th>Reserved On</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              {reservations.map((r) => (
+                <tr key={r.id}>
+                  <td className="mono">{r.isbn}</td>
+                  <td>{r.reservation_date}</td>
+                  <td>{statusBadge(r.status)}</td>
+                  <td>
+                    {r.status === "active" && (
+                      <button className="btn-sm btn-danger" onClick={() => handleCancel(r.id)}>Cancel</button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
